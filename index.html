@@ -1,67 +1,35 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Forgeverse</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.7.0/dist/ethers.umd.min.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0b0f1a;
-      color: white;
-      text-align: center;
-      padding: 40px;
-    }
-    .card {
-      background: #121a2b;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 500px;
-      margin: auto;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    }
-    button {
-      background: #6c5ce7;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 8px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-    button:hover {
-      opacity: 0.9;
-    }
-    .addr {
-      word-break: break-all;
-      font-size: 14px;
-      opacity: 0.8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeVerse Game</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
+
 <body>
 
-  <div class="card">
-    <h1>🔥 Forgeverse</h1>
-    <p>Conecte sua carteira para começar</p>
+<div id="app">
+    <h1>🔥 ForgeVerse Game</h1>
 
-    <button onclick="connectWallet()">Conectar MetaMask</button>
+    <button id="connectBtn">Conectar Carteira</button>
 
-    <p id="wallet"></p>
+    <div id="playerInfo" class="hidden">
+        <p>Carteira: <span id="walletAddress"></span></p>
+        <p>Saldo FORG: <span id="tokenBalance">0</span></p>
+        <p>Energia: <span id="energy">100</span></p>
+    </div>
 
-    <hr />
+    <button id="mineBtn" class="hidden">Minerar</button>
 
-    <h3>Token FORG</h3>
-    <p class="addr" id="contract"></p>
+    <p id="status"></p>
+</div>
 
-    <h3>Carteira Principal</h3>
-    <p class="addr" id="treasury"></p>
+<script src="config.js"></script>
+<script src="web3.js"></script>
+<script src="game.js"></script>
 
-  </div>
-
-  <script src="app.js"></script>
 </body>
 </html>
