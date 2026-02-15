@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>ForgeVerse – Teste</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#0f172a;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh}
+#app{background:#111827;padding:25px;border-radius:12px;width:360px;text-align:center;box-shadow:0 0 20px rgba(0,0,0,.6)}
+input,button{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:none;font-size:16px}
+button{background:#7c3aed;color:#fff;cursor:pointer}
+button:hover{background:#6d28d9}
+.hidden{display:none}
+.small{font-size:12px;opacity:.7}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="login">
+<h1>🔥 ForgeVerse</h1>
+<p class="small">Versão de teste — sem carteira</p>
+<input type="email" id="email" placeholder="Digite seu e-mail">
+<button onclick="login()">Criar conta / Entrar</button>
+<p id="loginStatus" class="small"></p>
+</div>
+<div id="game" class="hidden">
+<h2>⛏️ Mineração</h2>
+<p><strong>Conta:</strong> <span id="playerEmail"></span></p>
+<p><strong>Energia:</strong> <span id="energy">100</span></p>
+<button onclick="mine()">Minerar</button>
+<p id="status"></p>
+<p class="small">⚠️ Apenas teste. Nada é real.</p>
+</div>
+</div>
+<script>
+let energy=100;
+function login(){
+ const email=document.getElementById("email").value.trim();
+ const status=document.getElementById("loginStatus");
+ if(!email||!email.includes("@")){status.innerText="Digite um e-mail válido.";return;}
+ localStorage.setItem("forgeverse_user",email);
+ startGame(email);
+}
+function startGame(email){
+ document.getElementById("playerEmail").innerText=email;
+ document.getElementById("login").classList.add("hidden");
+ document.getElementById("game").classList.remove("hidden");
+}
+function mine(){
+ if(energy<=0){document.getElementById("status").innerText="Sem energia!";return;}
+ energy-=10;
+ document.getElementById("energy").innerText=energy;
+ document.getElementById("status").innerText="Minerando... (modo teste)";
+}
+const saved=localStorage.getItem("forgeverse_user");
+if(saved){startGame(saved);}
+</script>
+</body>
+</html>
