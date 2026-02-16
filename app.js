@@ -1,28 +1,64 @@
+let provider;
+let signer;
+let userAddress;
 
-const CONFIG = {
-  tokenContract: "0x50151553b0772b579a7b906f43e21F768d075bE5",
-  treasuryWallet: "0x52919f000897c8a8b15a1b607eae6024c00dbb1a"
-};
+const polygonChainId = "0x89"; // Polygon Mainnet
 
-document.getElementById("contract").innerText = CONFIG.tokenContract;
-document.getElementById("treasury").innerText = CONFIG.treasuryWallet;
+async function connectWallet(){
+    const status = document.getElementById("status");
 
-async function connectWallet() {
-  try {
-    if (!window.ethereum) {
-      alert("MetaMask não encontrado");
-      return;
+    if(typeof window.ethereum === "undefined"){
+        alert("Abra dentro da MetaMask ou Trust Wallet.");
+        return;
     }
 
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const accounts = await provider.send("eth_requestAccounts", []);
-    const wallet = accounts[0];
+    try{
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
 
-    document.getElementById("wallet").innerText =
-      "Carteira conectada: " + wallet;
+        // switch to Polygon automatically
+        await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: polygonChainId }],
+        });
 
-  } catch (err) {
-    console.error(err);
-    alert("Erro ao conectar");
-  }
+        signer = provider.getSigner();
+        userAddress = await signer.getAddress();
+
+        document.getElementById("connectBtn").innerText =
+            userAddress.slice(0,6)+"..."+userAddress.slice(-4);
+
+        status.innerText = "✅ Carteira conectada";
+    }catch(err){
+        console.error(err);
+        status.innerText = "Erro ao conectar carteira";
+    }
 }
+
+async function buyTokens(){
+    const status = document.getElementById("status");
+    const amount = document.getElementById("amount").value;
+
+    if(!amount || amount <= 0){
+        alert("Digite um valor válido.");
+        return;
+    }
+
+    try{
+        const tx = await signer.sendTransaction({
+            to: "0xf39eaefc669fde85ab13c262279ae267faf034b8",
+            value: ethers.utils.parseEther(amount)
+        });
+
+        status.innerText = "⛓ Enviando transação...";
+        await tx.wait();
+
+        status.innerText = "🚀 Compra confirmada!";
+    }catch(err){
+        console.error(err);
+        status.innerText = "Erro ao realizar pagamento.";
+    }
+}
+
+document.getElementById("connectBtn").onclick = connectWallet;
+document.getElementById("buyBtn").onclick = buyTokens;

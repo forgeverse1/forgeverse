@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ForgeVerse - Pré‑Venda Oficial</title>
+<title>ForgeVerse Presale</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
+
 <body>
 
 <div class="container">
@@ -15,21 +16,14 @@
 
     <button id="connectBtn">Conectar Carteira</button>
 
-    <div id="walletBox" class="hidden">
-        <p>Carteira conectada:</p>
-        <span id="walletAddress"></span>
-    </div>
-
-    <div class="buyBox">
+    <div class="card">
         <h2>Comprar Tokens</h2>
-        <input id="amount" type="number" placeholder="Valor em MATIC">
+        <input id="amount" type="number" placeholder="Valor em MATIC"/>
         <button id="buyBtn">Comprar FORG</button>
+        <p id="status"></p>
     </div>
-
-    <p id="status"></p>
 </div>
 
-<script src="config.js"></script>
-<script src="presale.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
