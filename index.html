@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ForgeVerse Game</title>
-
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ForgeVerse - Pré‑Venda Oficial</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
-
 <body>
 
-<div id="app">
-    <h1>🔥 ForgeVerse Game</h1>
+<div class="container">
+    <h1>🔥 ForgeVerse Presale</h1>
+    <p>Participe da pré‑venda oficial do token FORG</p>
 
     <button id="connectBtn">Conectar Carteira</button>
 
-    <div id="playerInfo" class="hidden">
-        <p>Carteira: <span id="walletAddress"></span></p>
-        <p>Saldo FORG: <span id="tokenBalance">0</span></p>
-        <p>Energia: <span id="energy">100</span></p>
+    <div id="walletBox" class="hidden">
+        <p>Carteira conectada:</p>
+        <span id="walletAddress"></span>
     </div>
 
-    <button id="mineBtn" class="hidden">Minerar</button>
+    <div class="buyBox">
+        <h2>Comprar Tokens</h2>
+        <input id="amount" type="number" placeholder="Valor em MATIC">
+        <button id="buyBtn">Comprar FORG</button>
+    </div>
 
     <p id="status"></p>
 </div>
 
 <script src="config.js"></script>
-<script src="web3.js"></script>
-<script src="game.js"></script>
-
+<script src="presale.js"></script>
 </body>
 </html>
